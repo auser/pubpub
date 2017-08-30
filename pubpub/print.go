@@ -49,6 +49,7 @@ func runPrintScript(cmd *cobra.Command, args []string) {
 	writeResource("resources/embed_html.py", tdir+"/embed_html.py")
 	writeResource("resources/no_code.tpl", tdir+"/no_code.tpl")
 	writeResource("resources/custom.css", tdir+"/custom.css")
+	writeResource("resources/environment.yml", tdir+"/environment.yml")
 
 	// c := exec.Command("/bin/bash", "source activate pubpub", "&&", pyPrinter, "-pm", notebookFile)
 	c := fmt.Sprintf("python \"%s\" -pm \"%s\"", pyPrinter, notebookFile)
