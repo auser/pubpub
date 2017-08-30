@@ -18,7 +18,7 @@ var cmdSetupSystem = &cobra.Command{
 }
 
 func runSetupSystem(cmd *cobra.Command, args []string) {
-	tmp, err := ioutil.TempDir("pubpub", "")
+	tmp, err := ioutil.TempDir("/tmp", "")
 	if err != nil {
 		log.Fatal(err)
 	}
