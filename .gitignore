@@ -2,3 +2,4 @@ test.db
 vendor
 main
 releases/
+resources/__pycache__/

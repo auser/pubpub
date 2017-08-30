@@ -1,12 +1,24 @@
-hash: a86ee512a200b55ed0d43ccb3fb225010cc75b37c8bcb696e635624f3064c99a
-updated: 2017-08-30T12:53:26.422426746-07:00
+hash: 9e1e7161fbec29bd17389f07a1a9dcb0468ee04954cffb1efebeab486f2b3968
+updated: 2017-08-30T14:25:59.458344865-07:00
 imports:
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/jteeuwen/go-bindata
+  version: bbd0c6e271208dce66d8fda4bc536453cd27fc4a
 - name: github.com/mitchellh/go-homedir
   version: b8bc1bf767474819792c23f32d8286a45736f1c6
 - name: github.com/spf13/cobra
   version: 34594c771f2c18301dc152640ad40ece28795373
+- name: github.com/spf13/pflag
+  version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/spf13/viper
   version: 25b30aa063fc18e48662b86996252eabdcf2f0c7
-- name: gopkg.in/yaml.v2
-  version: 4c78c975fe7c825c6d1466c42be594d1d6f3aba6
+- name: github.com/wellington/go-libsass
+  version: 70e55d4c8433334142a94120c8b3fbccd0a0af25
+  subpackages:
+  - libs
+- name: golang.org/x/net
+  version: 84f0e6f92b10139f986b1756e149a7d9de270cdc
+  subpackages:
+  - context
 testImports: []

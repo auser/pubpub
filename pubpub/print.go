@@ -2,10 +2,9 @@ package pubpub
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
-	"os"
 	"os/exec"
-	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -25,17 +24,31 @@ func init() {
 	cmdPrint.Flags().StringVarP(&notebookFile, "notebook", "n", "", "Notebook file")
 }
 
-func runPrintScript(cmd *cobra.Command, args []string) {
-	// db.GetAllRepresentatives()
-	log.Printf("Running print command on %s\n", notebookFile)
-
-	ex, err := os.Executable()
+func writeResource(resourcePath string, resourceOutput string) {
+	data, err := Asset(resourcePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	exPath := filepath.Dir(ex)
-	pyPrinter := exPath + "/resources/jupyter_to_print.py"
-	fmt.Println(pyPrinter)
+
+	err = ioutil.WriteFile(resourceOutput, data, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func runPrintScript(cmd *cobra.Command, args []string) {
+	// db.GetAllRepresentatives()
+	// log.Printf("Running print command on %s\n", notebookFile)
+	tdir, err := ioutil.TempDir("/tmp", "")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	pyPrinter := tdir + "/jupyter_to_print.py"
+	writeResource("resources/jupyter_to_print.py", pyPrinter)
+	writeResource("resources/embed_html.py", tdir+"/embed_html.py")
+	writeResource("resources/no_code.tpl", tdir+"/no_code.tpl")
+	writeResource("resources/custom.css", tdir+"/custom.css")
 
 	// c := exec.Command("/bin/bash", "source activate pubpub", "&&", pyPrinter, "-pm", notebookFile)
 	c := fmt.Sprintf("python \"%s\" -pm \"%s\"", pyPrinter, notebookFile)

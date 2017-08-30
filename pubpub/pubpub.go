@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/auser/repro/cmd/db"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +27,7 @@ var RootCmd = &cobra.Command{
 func Execute(version string) {
 	VERSION = version
 
-	db.Prepare()
+	// db.Prepare()
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
