@@ -27,6 +27,10 @@ parser.add_argument('-pm', '--with-pymarkdown', default=False,
 parser.add_argument('--no-embed-images', default=False,
                     action='store_true',
                     help='Disable HTML image embedding')
+parser.add_argument("-o", "--output",
+                    metavar='O',
+                    type=str,
+                    default=dirname(abspath(__file__)))
 args = parser.parse_args()
 
 this_file_dir_path = dirname(abspath(__file__))
@@ -89,7 +93,7 @@ for idx, file_path in enumerate(args.in_file_path):
     out_file_name = '{}-{}-{}-{}.html'.format(year, mo, day, title)
     file_dir = dirname(abspath(file_path))
     chdir(file_dir)  # nbconvert is weird
-    out_file = "{}/{}".format(this_file_dir_path, out_file_name)
+    out_file = "{}/{}".format(args.output, out_file_name)
 
     with open(file_path, "r") as read_fp:
         nb = nbformat.read(read_fp, as_version=nbformat.NO_CONVERT)

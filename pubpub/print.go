@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -18,10 +19,12 @@ var cmdPrint = &cobra.Command{
 
 var (
 	notebookFile string
+	outputDir    string
 )
 
 func init() {
 	cmdPrint.Flags().StringVarP(&notebookFile, "notebook", "n", "", "Notebook file")
+	cmdPrint.Flags().StringVarP(&outputDir, "output", "o", "/tmp", "Output")
 }
 
 func writeResource(resourcePath string, resourceOutput string) {
@@ -44,6 +47,8 @@ func runPrintScript(cmd *cobra.Command, args []string) {
 		log.Fatal(err)
 	}
 
+	defer os.Remove(tdir)
+
 	pyPrinter := tdir + "/jupyter_to_print.py"
 	writeResource("resources/jupyter_to_print.py", pyPrinter)
 	writeResource("resources/embed_html.py", tdir+"/embed_html.py")
@@ -52,7 +57,7 @@ func runPrintScript(cmd *cobra.Command, args []string) {
 	writeResource("resources/environment.yml", tdir+"/environment.yml")
 
 	// c := exec.Command("/bin/bash", "source activate pubpub", "&&", pyPrinter, "-pm", notebookFile)
-	c := fmt.Sprintf("python \"%s\" -pm \"%s\"", pyPrinter, notebookFile)
+	c := fmt.Sprintf("source activate pubpub && python \"%s\" -pm \"%s\" --output \"%s\"", pyPrinter, notebookFile, outputDir)
 	out, err := exec.Command("bash", "-c", c).Output()
 	if err != nil {
 		log.Fatal(err)
