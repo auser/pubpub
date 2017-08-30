@@ -41,4 +41,5 @@ func init() {
 	// RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.repro.yaml)")
 	RootCmd.AddCommand(cmdPrint)
 	RootCmd.AddCommand(cmdRenderSass)
+	RootCmd.AddCommand(cmdSetupSystem)
 }
