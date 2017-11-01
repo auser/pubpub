@@ -99,6 +99,13 @@ h6,
   color: #003580;
 }
 
+#notebook-container {
+  padding: 15px;
+  background-color: #fff;
+  min-height: 0;
+  box-shadow: none;
+}
+
 div {
   &#notebook {
     margin-top: 50px;
